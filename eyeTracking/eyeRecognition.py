@@ -18,7 +18,7 @@ while(cap.isOpened()):
         sumew =0
         sumeh =0
         for (ex, ey, ew, eh) in eyes:
-            if(ex < sumx):
+            if(ex != sumx):
                 sumx = ex
                 sumy = ey
             sumew = sumew + ew
