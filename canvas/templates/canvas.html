@@ -12,6 +12,10 @@
     
     function init() {
         canvas = document.getElementById('can');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
         ctx = canvas.getContext("2d");
         w = canvas.width;
         h = canvas.height;
