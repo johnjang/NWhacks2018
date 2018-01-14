@@ -21,13 +21,15 @@
         }, false);
 
         draw_flag = false;
-        window.addEventListener('keydown',this.draw_toggle,false);
+        window.addEventListener('keydown',this.option_toggles,false);
 
     }
 
-    function draw_toggle(e) {
+    function option_toggles(e) {
         if (e.keyCode == 32) {
             draw_flag = !draw_flag
+        } else if (e.keyCode == 67) {
+            erase();
         }
     }
     
@@ -42,11 +44,8 @@
     }
     
     function erase() {
-        var m = confirm("Want to clear");
-        if (m) {
-            ctx.clearRect(0, 0, w, h);
-            document.getElementById("canvasimg").style.display = "none";
-        }
+        ctx.clearRect(0, 0, w, h);
+        document.getElementById("canvasimg").style.display = "none";
     }
     
     function findxy(res, e) {
