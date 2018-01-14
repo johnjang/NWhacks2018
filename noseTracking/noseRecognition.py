@@ -55,7 +55,7 @@ def run(x, y, w, h):
 
             print(radius)
             if erase:
-                cv2.line(img, prevcenter, center, (0, 0, 0), thickness=10, lineType=8)
+                cv2.line(img, prevcenter, center, (0, 0, 0), thickness=20, lineType=8)
             elif draw:
                 cv2.line(img, prevcenter, center, (0, 255, 0), thickness=radius, lineType=8)
             else:
@@ -119,6 +119,6 @@ if __name__ == "__main__":
             k = cv2.waitKey(1) & 0xFF
 
             if k == ord("e"):
-                run(nx, ny, nw, nh)
+                run(new_x, new_y, new_w, new_h)
             if (k == ord("q")):
                 break
