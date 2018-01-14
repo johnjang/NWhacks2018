@@ -4,12 +4,11 @@ import cv2
 erase = False
 draw = False
 counter = 0 
+prevcenter = (0,0)
 def run(x, y, w, h):
-    global draw
-    global counter
-    global erase
-    length = 2*512
-    width = 2*512
+    global erase, draw, counter ,prevcenter
+    length = 512
+    width = 512
     img = np.zeros((length,width,3), np.uint8)
     cap = cv2.VideoCapture(0)
     cap.set(cv2.CAP_PROP_FPS, 30)
@@ -29,22 +28,29 @@ def run(x, y, w, h):
                     cp = [(ex+ew)/2, (ey+eh)/2]
 
             print(cp[0], cp[1])
-            center = (int(cp[0]),int(cp[1]))
+            center = (length -int(cp[0]),int(cp[1]))
 
             cv2.namedWindow('img', cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty('img',
                               cv2.WND_PROP_FULLSCREEN,
                               cv2.WINDOW_FULLSCREEN)
+
             cv2.imshow('img',img)
 
+
             if erase:
-                cv2.circle(img,center,5,(0,0,0),-1)
+                #cv2.circle(img,center,5,(0,0,0),-1)
+                #erase lines from previous center to current center
+                cv2.line(img, prevcenter, center, (0, 0, 0), thickness=3, lineType=8)
             elif draw:
-                cv2.circle(img,center,5,(0,255,0),-1)
+                #cv2.circle(img,center,5,(0,255,0),-1)
+                #draw lines from revious center to current center
+                cv2.line(img, prevcenter, center, (0, 255, 0), thickness=3, lineType=8)
             else:
                 cv2.circle(img,center,5,(0,0,255),-1)
                 if(counter%2 == 0):
                     img = np.zeros((length,width,3), np.uint8)
+            prevcenter = center
             counter += 1
             k = cv2.waitKey(1) & 0xFF
             if k == ord("e"):
@@ -84,6 +90,7 @@ if __name__ == "__main__":
                 ny = y
                 nw = w
                 nh = h
+                cv2.circle(frame,(int(x+w/2),int(y+h/2)), 5,(255,0,0),-1)
             cv2.namedWindow('frame', cv2.WND_PROP_FULLSCREEN)
             cv2.setWindowProperty('frame',
                               cv2.WND_PROP_FULLSCREEN,
